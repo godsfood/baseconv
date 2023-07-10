@@ -36,6 +36,7 @@ func (b *baseConversion) Convert(s string) (r string, err error) {
 	return
 }
 
+// Horner's method
 func (b *baseConversion) convertIntegralPart(ip string) string {
 	fromBase := b.fromAlphabet.Radix()
 	toBase := b.toAlphabet.Radix()

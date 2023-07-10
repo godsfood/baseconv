@@ -1,15 +1,13 @@
-package baseconv_test
+package baseconv
 
 import (
 	"fmt"
 	"testing"
-
-	"github.com/godsfood/baseconv"
 )
 
 func TestValidations(t *testing.T) {
 	t.Run("alphabet has duplicate characters", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("0123453789")
+		alphabet, err := NewAlphabet("0123453789")
 
 		if alphabet != nil || err == nil {
 			t.Fatal(fmt.Sprintf("alphabet '%v' has duplicate characters", alphabet))
@@ -19,7 +17,7 @@ func TestValidations(t *testing.T) {
 
 func TestRadix(t *testing.T) {
 	t.Run("base-10", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("0123456789")
+		alphabet, err := NewAlphabet("0123456789")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -30,7 +28,7 @@ func TestRadix(t *testing.T) {
 	})
 
 	t.Run("base-2", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("01")
+		alphabet, err := NewAlphabet("01")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -41,7 +39,7 @@ func TestRadix(t *testing.T) {
 	})
 
 	t.Run("base-16", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("0123456789abcdef")
+		alphabet, err := NewAlphabet("0123456789abcdef")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -52,7 +50,7 @@ func TestRadix(t *testing.T) {
 	})
 
 	t.Run("base-10 (emoji)", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
+		alphabet, err := NewAlphabet("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -65,7 +63,7 @@ func TestRadix(t *testing.T) {
 
 func TestIsValid(t *testing.T) {
 	t.Run("valid base-10 numerals", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("0123456789")
+		alphabet, err := NewAlphabet("0123456789")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -82,7 +80,7 @@ func TestIsValid(t *testing.T) {
 	})
 
 	t.Run("invalid base-10 numerals", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("0123456789")
+		alphabet, err := NewAlphabet("0123456789")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -100,7 +98,7 @@ func TestIsValid(t *testing.T) {
 	})
 
 	t.Run("valid base-10 (emoji) numerals", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
+		alphabet, err := NewAlphabet("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -117,7 +115,7 @@ func TestIsValid(t *testing.T) {
 	})
 
 	t.Run("invalid base-10 (emoji) numerals", func(t *testing.T) {
-		alphabet, err := baseconv.NewAlphabet("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
+		alphabet, err := NewAlphabet("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
 		if err != nil {
 			t.Fatal(err)
 		}
