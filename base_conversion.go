@@ -1,4 +1,4 @@
-package baseconv
+package baseconv // import "go.dkinom.dev/baseconv"
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-module github.com/godsfood/baseconv
+module go.dkinom.dev/baseconv
 
 go 1.18
 

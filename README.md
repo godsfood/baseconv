@@ -2,7 +2,7 @@
 
 [![Base conversion](https://raw.githubusercontent.com/godsfood/baseconv/master/.img/baseconv.png)](https://github.com/godsfood/baseconv)
 
-[![Version](https://img.shields.io/github/v/tag/godsfood/baseconv)](https://pkg.go.dev/github.com/godsfood/baseconv)
+[![Version](https://img.shields.io/github/v/tag/godsfood/baseconv)](https://pkg.go.dev/go.dkinom.dev/baseconv)
 [![Build Status](https://github.com/godsfood/baseconv/actions/workflows/.github/workflows/go.yml/badge.svg?branch=master)](https://github.com/godsfood/baseconv/actions)
 [![Coverage Status](https://coveralls.io/repos/github/godsfood/baseconv/badge.svg)](https://coveralls.io/github/godsfood/baseconv)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/godsfood/baseconv/blob/master/LICENSE)
@@ -12,7 +12,7 @@ A Go module for converting between different bases, e.g., decimal ↔ binary, oc
 ## Installing
 
 ```bash
-go get github.com/godsfood/baseconv
+go get go.dkinom.dev/baseconv
 ```
 
 ## Usage
@@ -66,7 +66,7 @@ decimalEmoji, _ := decimalEmojiToHexadecimalConverter.Inverse().Convert("DEADC0D
 
 *`to`* - String of numeral symbols representing the digits of `to` numeral system.
 
-See [documentation](https://pkg.go.dev/github.com/godsfood/baseconv#section-documentation) for more
+See [documentation](https://pkg.go.dev/go.dkinom.dev/baseconv#section-documentation) for more
 
 ## License
 

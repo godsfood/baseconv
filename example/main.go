@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/godsfood/baseconv"
+	"go.dkinom.dev/baseconv"
 )
 
 func main() {

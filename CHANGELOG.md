@@ -1,3 +1,7 @@
+## 0.2.0
+
+- Vanity import `go.dkinom.dev/baseconv`
+
 ## 0.1.0
 
 - Initial development release
