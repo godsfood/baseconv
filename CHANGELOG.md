@@ -1,3 +1,7 @@
+## 0.2.0+1
+
+- Added `.golangci.yaml`
+
 ## 0.2.0
 
 - Vanity import `go.dkinom.dev/baseconv`

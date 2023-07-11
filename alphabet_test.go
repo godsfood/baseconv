@@ -1,7 +1,6 @@
 package baseconv
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -10,7 +9,7 @@ func TestValidations(t *testing.T) {
 		alphabet, err := NewAlphabet("0123453789")
 
 		if alphabet != nil || err == nil {
-			t.Fatal(fmt.Sprintf("alphabet '%v' has duplicate characters", alphabet))
+			t.Fatalf("alphabet '%v' has duplicate characters", alphabet)
 		}
 	})
 }
@@ -23,7 +22,7 @@ func TestRadix(t *testing.T) {
 		}
 		expected := 10
 		if alphabet.Radix() != expected {
-			t.Fatal(fmt.Sprintf("radix of '%v' is %v", alphabet, expected))
+			t.Fatalf("radix of '%v' is %v", alphabet, expected)
 		}
 	})
 
@@ -34,7 +33,7 @@ func TestRadix(t *testing.T) {
 		}
 		expected := 2
 		if alphabet.Radix() != expected {
-			t.Fatal(fmt.Sprintf("radix of '%v' is %v", alphabet, expected))
+			t.Fatalf("radix of '%v' is %v", alphabet, expected)
 		}
 	})
 
@@ -45,7 +44,7 @@ func TestRadix(t *testing.T) {
 		}
 		expected := 16
 		if alphabet.Radix() != expected {
-			t.Fatal(fmt.Sprintf("radix of '%v' is %v", alphabet, expected))
+			t.Fatalf("radix of '%v' is %v", alphabet, expected)
 		}
 	})
 
@@ -56,7 +55,7 @@ func TestRadix(t *testing.T) {
 		}
 		expected := 10
 		if alphabet.Radix() != expected {
-			t.Fatal(fmt.Sprintf("radix of '%v' is %v", alphabet, expected))
+			t.Fatalf("radix of '%v' is %v", alphabet, expected)
 		}
 	})
 }
@@ -74,7 +73,7 @@ func TestIsValid(t *testing.T) {
 
 		for _, n := range validNumerals {
 			if !alphabet.IsValid(n) {
-				t.Fatal(fmt.Sprintf("'%v' is valid", n))
+				t.Fatalf("'%v' is valid", n)
 			}
 		}
 	})
@@ -92,7 +91,7 @@ func TestIsValid(t *testing.T) {
 
 		for _, n := range invalidNumerals {
 			if alphabet.IsValid(n) {
-				t.Fatal(fmt.Sprintf("'%v' is invalid", n))
+				t.Fatalf("'%v' is invalid", n)
 			}
 		}
 	})
@@ -109,7 +108,7 @@ func TestIsValid(t *testing.T) {
 
 		for _, n := range validNumerals {
 			if !alphabet.IsValid(n) {
-				t.Fatal(fmt.Sprintf("'%v' is valid", n))
+				t.Fatalf("'%v' is valid", n)
 			}
 		}
 	})
@@ -127,7 +126,7 @@ func TestIsValid(t *testing.T) {
 
 		for _, n := range invalidNumerals {
 			if alphabet.IsValid(n) {
-				t.Fatal(fmt.Sprintf("'%v' is invalid", n))
+				t.Fatalf("'%v' is invalid", n)
 			}
 		}
 	})

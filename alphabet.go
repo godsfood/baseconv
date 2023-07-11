@@ -39,10 +39,12 @@ func (a *alphabet) String() string {
 	return strings.Join(a.characters, ",")
 }
 
+// Radix of this alphabet
 func (a *alphabet) Radix() int {
 	return len(a.characters)
 }
 
+// Checks if s is a valid numeral representation
 func (a *alphabet) IsValid(s string) bool {
 	var previousCharacter *string
 	gr := uniseg.NewGraphemes(s)

@@ -6,11 +6,14 @@ import (
 	"github.com/rivo/uniseg"
 )
 
+// Provides ability to convert numbers between different
+// positional numeral systems
 type baseConversion struct {
 	fromAlphabet alphabet
 	toAlphabet   alphabet
 }
 
+// Initializes baseConversion struct with the given from and to alphabets
 func NewBaseConversion(from string, to string) (*baseConversion, error) {
 	fromAlphabet, err := NewAlphabet(from)
 	if err != nil {
@@ -26,6 +29,7 @@ func NewBaseConversion(from string, to string) (*baseConversion, error) {
 	return &b, nil
 }
 
+// Returns numeral representation of s in toAlphabet
 func (b *baseConversion) Convert(s string) (r string, err error) {
 	if !b.fromAlphabet.IsValid(s) {
 		err = fmt.Errorf("'%v' is invalid", s)
@@ -84,6 +88,8 @@ func (b *baseConversion) convertIntegralPart(ip string) string {
 	return r
 }
 
+// Returns a baseConversion which converts numerals
+// from toAlphabet to fromAlphabet
 func (b *baseConversion) Inverse() *baseConversion {
 	return &baseConversion{b.toAlphabet, b.fromAlphabet}
 }

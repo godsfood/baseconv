@@ -57,7 +57,8 @@ func decimalAndDecimalEmoji() {
 func decimalEmojiAndHexadecimal() {
 	// Decimal emoji alphabet - 0️⃣, 1️⃣, 2️⃣, 3️⃣, 4️⃣, 5️⃣, 6️⃣, 7️⃣, 8️⃣, 9️⃣
 	// Hexadecimal alphabet - 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F
-	decimalEmojiToHexadecimalConverter, err := baseconv.NewBaseConversion("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣", baseconv.Base16)
+	decimalEmojiToHexadecimalConverter, err :=
+		baseconv.NewBaseConversion("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣", baseconv.Base16)
 	if err != nil {
 		panic(err)
 	}
@@ -72,5 +73,7 @@ func decimalEmojiAndHexadecimal() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("hexadecimal number DEADC0DE is represented as %v in decimal emoji\n", decimalEmoji) // 3️⃣7️⃣3️⃣5️⃣9️⃣2️⃣9️⃣0️⃣5️⃣4️⃣
+	fmt.Printf(
+		"hexadecimal number DEADC0DE is represented as %v in decimal emoji\n", decimalEmoji,
+	) // 3️⃣7️⃣3️⃣5️⃣9️⃣2️⃣9️⃣0️⃣5️⃣4️⃣
 }
