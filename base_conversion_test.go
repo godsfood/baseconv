@@ -5,7 +5,41 @@ import (
 	"testing"
 )
 
+func TestValidations(t *testing.T) {
+	t.Run("alphabet has duplicate characters 1", func(t *testing.T) {
+		alphabet := "0123453789"
+		b, err := NewBaseConversion(Hexadecimal, alphabet)
+
+		if b != nil || err == nil {
+			t.Fatalf("alphabet '%v' has duplicate characters", alphabet)
+		}
+	})
+
+	t.Run("alphabet has duplicate characters 2", func(t *testing.T) {
+		alphabet := "0123453789"
+		b, err := NewBaseConversion(alphabet, Binary)
+
+		if b != nil || err == nil {
+			t.Fatalf("alphabet '%v' has duplicate characters", alphabet)
+		}
+	})
+}
+
 func TestConverter(t *testing.T) {
+	t.Run("invalid input", func(t *testing.T) {
+		b, err := NewBaseConversion(Decimal, Binary)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		s := "123abc"
+		r, err := b.Convert(s)
+
+		if r != "" || err == nil {
+			t.Fatalf("'%v' is invalid", s)
+		}
+	})
+
 	{
 		b, err := NewBaseConversion(Decimal, Binary)
 		if err != nil {

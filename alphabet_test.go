@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestValidations(t *testing.T) {
+func TestAlphabetValidations(t *testing.T) {
 	t.Run("alphabet has duplicate characters", func(t *testing.T) {
 		alphabet, err := NewAlphabet("0123453789")
 
@@ -14,7 +14,20 @@ func TestValidations(t *testing.T) {
 	})
 }
 
-func TestRadix(t *testing.T) {
+func TestAlphabetString(t *testing.T) {
+	t.Run("base-10", func(t *testing.T) {
+		alphabet, err := NewAlphabet("0123456789")
+		if err != nil {
+			t.Fatal(err)
+		}
+		expected := "0,1,2,3,4,5,6,7,8,9"
+		if alphabet.String() != expected {
+			t.Fatal()
+		}
+	})
+}
+
+func TestAlphabetRadix(t *testing.T) {
 	t.Run("base-10", func(t *testing.T) {
 		alphabet, err := NewAlphabet("0123456789")
 		if err != nil {
@@ -60,7 +73,7 @@ func TestRadix(t *testing.T) {
 	})
 }
 
-func TestIsValid(t *testing.T) {
+func TestAlphabetIsValid(t *testing.T) {
 	t.Run("valid base-10 numerals", func(t *testing.T) {
 		alphabet, err := NewAlphabet("0123456789")
 		if err != nil {

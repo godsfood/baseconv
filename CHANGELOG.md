@@ -1,6 +1,7 @@
 ## 0.2.0+1
 
 - Added `.golangci.yaml`
+- Improved test coverage
 
 ## 0.2.0
 
