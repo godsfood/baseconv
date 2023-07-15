@@ -1,4 +1,4 @@
-package baseconv // import "go.dkinom.dev/baseconv"
+package baseconv
 
 import (
 	"fmt"
@@ -8,8 +8,9 @@ import (
 )
 
 type alphabet struct {
-	characters   []string
-	characterSet map[string]int
+	characters    []string
+	characterSet  map[string]int
+	zeroCharacter string
 }
 
 func NewAlphabet(str string) (*alphabet, error) {
@@ -30,9 +31,13 @@ func NewAlphabet(str string) (*alphabet, error) {
 		return nil, fmt.Errorf("Must not have duplicate characters in alphabet")
 	}
 
-	a := alphabet{characters, characterSet}
+	a := &alphabet{
+		characters:    characters,
+		characterSet:  characterSet,
+		zeroCharacter: characters[0],
+	}
 
-	return &a, nil
+	return a, nil
 }
 
 func (a *alphabet) String() string {
@@ -125,6 +130,9 @@ const Base36 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 // Base58 numeral system
 const Base58 = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz"
+
+// Base62 numeral system
+const Base62 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
 // Base64 numeral system
 const Base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"

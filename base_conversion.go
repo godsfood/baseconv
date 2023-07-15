@@ -1,9 +1,12 @@
-package baseconv // import "go.dkinom.dev/baseconv"
+package baseconv
 
 import (
 	"fmt"
+	"math"
+	"strings"
 
 	"github.com/rivo/uniseg"
+	"go.dkinom.dev/baseconv/options"
 )
 
 // Provides ability to convert numbers between different
@@ -11,10 +14,14 @@ import (
 type baseConversion struct {
 	fromAlphabet alphabet
 	toAlphabet   alphabet
+
+	lengthFactor float64
+
+	zeroPadding bool
 }
 
 // Initializes baseConversion struct with the given from and to alphabets
-func NewBaseConversion(from string, to string) (*baseConversion, error) {
+func NewBaseConversion(from string, to string, opts ...*options.BaseConversionOptions) (*baseConversion, error) {
 	fromAlphabet, err := NewAlphabet(from)
 	if err != nil {
 		return nil, err
@@ -24,9 +31,39 @@ func NewBaseConversion(from string, to string) (*baseConversion, error) {
 		return nil, err
 	}
 
-	b := baseConversion{*fromAlphabet, *toAlphabet}
+	b := NewBaseConversionAlphabet(*fromAlphabet, *toAlphabet, opts...)
 
-	return &b, nil
+	return b, nil
+}
+
+// Initializes baseConversion struct with the given from and to alphabets
+func NewBaseConversionAlphabet(from alphabet, to alphabet, opts ...*options.BaseConversionOptions) *baseConversion {
+	b := &baseConversion{fromAlphabet: from, toAlphabet: to}
+
+	b.lengthFactor = math.Log(float64(from.Radix())) / math.Log(float64(to.Radix()))
+
+	opt := options.MergeBaseConversionOptions(opts...)
+
+	b.configure(opt)
+
+	return b
+}
+
+func (b *baseConversion) configure(opt *options.BaseConversionOptions) {
+	// Zero padding
+	b.zeroPadding = false
+	if opt.ZeroPadding != nil {
+		b.zeroPadding = *opt.ZeroPadding
+	}
+}
+
+func (b *baseConversion) options() *options.BaseConversionOptions {
+	o := options.BaseConversion()
+
+	// Zero padding
+	o.SetZeroPadding(b.zeroPadding)
+
+	return o
 }
 
 // Returns numeral representation of s in toAlphabet
@@ -40,13 +77,12 @@ func (b *baseConversion) Convert(s string) (r string, err error) {
 	return
 }
 
-// Horner's method
 func (b *baseConversion) convertIntegralPart(ip string) string {
 	fromBase := b.fromAlphabet.Radix()
 	toBase := b.toAlphabet.Radix()
 
-	var changeBase func(_values []int) string
-	changeBase = func(_values []int) string {
+	var changeBase func(_values []int) (string, int)
+	changeBase = func(_values []int) (string, int) { // Horner's method
 		values := []int{}
 		for i, v := range _values {
 			if v != 0 {
@@ -56,7 +92,7 @@ func (b *baseConversion) convertIntegralPart(ip string) string {
 		}
 
 		if len(values) == 0 {
-			return ""
+			return "", 0
 		}
 
 		remainder := 0
@@ -68,7 +104,9 @@ func (b *baseConversion) convertIntegralPart(ip string) string {
 			remainder = remainder % toBase
 		}
 
-		return changeBase(quotients) + b.toAlphabet.characters[remainder]
+		r, rLen := changeBase(quotients)
+
+		return r + b.toAlphabet.characters[remainder], rLen + 1
 	}
 
 	values := []int{}
@@ -78,11 +116,24 @@ func (b *baseConversion) convertIntegralPart(ip string) string {
 
 		values = append(values, b.fromAlphabet.characterSet[character])
 	}
+	ipLen := len(values)
 
-	r := changeBase(values)
+	r, rLen := changeBase(values)
+	if rLen == 0 {
+		r, rLen = b.toAlphabet.zeroCharacter, 1
+	}
 
-	if len(r) == 0 {
-		return b.toAlphabet.characters[0]
+	if b.zeroPadding {
+		currentLength := rLen
+		wantedLength := int(math.Ceil(float64(ipLen) * b.lengthFactor))
+
+		if currentLength < wantedLength {
+			var sb strings.Builder
+			sb.WriteString(strings.Repeat(b.toAlphabet.zeroCharacter, wantedLength-currentLength))
+			sb.WriteString(r)
+
+			r = sb.String()
+		}
 	}
 
 	return r
@@ -91,5 +142,5 @@ func (b *baseConversion) convertIntegralPart(ip string) string {
 // Returns a baseConversion which converts numerals
 // from toAlphabet to fromAlphabet
 func (b *baseConversion) Inverse() *baseConversion {
-	return &baseConversion{b.toAlphabet, b.fromAlphabet}
+	return NewBaseConversionAlphabet(b.toAlphabet, b.fromAlphabet, b.options())
 }

@@ -1,7 +1,6 @@
-## 0.2.0+1
+## 0.2.1
 
-- Added `.golangci.yaml`
-- Improved test coverage
+- Added zero padding option
 
 ## 0.2.0
 

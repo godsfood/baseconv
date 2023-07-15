@@ -32,10 +32,14 @@ hexadecimal, _ := hexadecimalToBase58Converter.Inverse().Convert("GjWGF6jERR9ymr
 
 #### Decimal (emoji) ↔ Hexadecimal
 ```go
-decimalEmojiToHexadecimalConverter, _ := baseconv.NewBaseConversion("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣", baseconv.Base16)
+decimalEmojiToHexadecimalConverter, _ := baseconv.NewBaseConversion(
+  "0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣", baseconv.Base16,
+  options.BaseConversion().
+    SetZeroPadding(true),
+)
 
 hexadecimal, _ := decimalEmojiToHexadecimalConverter.Convert("5️⃣1️⃣9️⃣6️⃣6️⃣")
-// hexadecimal == "CAFE"
+// hexadecimal == "0CAFE"
 
 decimalEmoji, _ := decimalEmojiToHexadecimalConverter.Inverse().Convert("DEADC0DE")
 // decimalEmoji == "3️⃣7️⃣3️⃣5️⃣9️⃣2️⃣9️⃣0️⃣5️⃣4️⃣"
@@ -55,12 +59,13 @@ decimalEmoji, _ := decimalEmojiToHexadecimalConverter.Inverse().Convert("DEADC0D
 - `Base32hex` - `0123456789ABCDEFGHIJKLMNOPQRSTUV`
 - `Base36` - `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ`
 - `Base58` - `123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`
+- `Base62` - `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`
 - `Base64` - `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/`
 - `Base64url` - `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_`
 
 ## Syntax
 
-### *`NewBaseConversion(from string, to string) (*baseConversion, error)`*
+### *`NewBaseConversion(from string, to string, opts ...*options.BaseConversionOptions) (*baseConversion, error)`*
 
 *`from`* - String of numeral symbols representing the digits of `from` numeral system.
 

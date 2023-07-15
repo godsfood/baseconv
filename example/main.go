@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"go.dkinom.dev/baseconv"
+	"go.dkinom.dev/baseconv/options"
 )
 
 func main() {
@@ -58,7 +59,11 @@ func decimalEmojiAndHexadecimal() {
 	// Decimal emoji alphabet - 0️⃣, 1️⃣, 2️⃣, 3️⃣, 4️⃣, 5️⃣, 6️⃣, 7️⃣, 8️⃣, 9️⃣
 	// Hexadecimal alphabet - 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, A, B, C, D, E, F
 	decimalEmojiToHexadecimalConverter, err :=
-		baseconv.NewBaseConversion("0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣", baseconv.Base16)
+		baseconv.NewBaseConversion(
+			"0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣", baseconv.Base16,
+			options.BaseConversion().
+				SetZeroPadding(true),
+		)
 	if err != nil {
 		panic(err)
 	}
@@ -67,7 +72,7 @@ func decimalEmojiAndHexadecimal() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("decimal emoji number 5️⃣1️⃣9️⃣6️⃣6️⃣ is represented as %v in hexadecimal\n", hexadecimal) // CAFE
+	fmt.Printf("decimal emoji number 5️⃣1️⃣9️⃣6️⃣6️⃣ is represented as %v in hexadecimal\n", hexadecimal) // 0CAFE
 
 	decimalEmoji, err := decimalEmojiToHexadecimalConverter.Inverse().Convert("DEADC0DE")
 	if err != nil {
