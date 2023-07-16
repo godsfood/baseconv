@@ -4,65 +4,65 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/rivo/uniseg"
+	"go.dkinom.dev/baseconv/characters"
 )
 
 type alphabet struct {
-	characters    []string
-	characterSet  map[string]int
-	zeroCharacter string
+	chars    []string
+	charset  map[string]int
+	zerochar string
 }
 
 func NewAlphabet(str string) (*alphabet, error) {
-	var characters []string
+	var chars []string
 
-	characterSet := make(map[string]int)
+	charset := make(map[string]int)
 
-	gr := uniseg.NewGraphemes(str)
-	for gr.Next() {
-		character := gr.Str()
+	c := characters.NewCharacters(str)
+	for c.Next() {
+		char := c.Str()
 
-		characters = append(characters, character)
+		chars = append(chars, char)
 
-		characterSet[character] = len(characters) - 1
+		charset[char] = len(chars) - 1
 	}
 
-	if len(characters) != len(characterSet) {
+	if len(chars) != len(charset) {
 		return nil, fmt.Errorf("Must not have duplicate characters in alphabet")
 	}
 
 	a := &alphabet{
-		characters:    characters,
-		characterSet:  characterSet,
-		zeroCharacter: characters[0],
+		chars:    chars,
+		charset:  charset,
+		zerochar: chars[0],
 	}
 
 	return a, nil
 }
 
 func (a *alphabet) String() string {
-	return strings.Join(a.characters, ",")
+	return strings.Join(a.chars, ",")
 }
 
 // Radix of this alphabet
 func (a *alphabet) Radix() int {
-	return len(a.characters)
+	return len(a.chars)
 }
 
 // Checks if s is a valid numeral representation
 func (a *alphabet) IsValid(s string) bool {
-	var previousCharacter *string
-	gr := uniseg.NewGraphemes(s)
-	for gr.Next() {
-		character := gr.Str()
+	var previousChar *string
+	c := characters.NewCharacters(s)
+	for c.Next() {
+		char := c.Str()
 
-		if _, present := a.characterSet[character]; !present {
+		if _, present := a.charset[char]; !present {
 			return false
 		}
 
-		previousCharacter = &character
+		previousChar = &char
 	}
-	return previousCharacter != nil
+	return previousChar != nil
 }
 
 // Binary numeral system

@@ -1,3 +1,7 @@
+## 0.2.2-rc.0
+
+- Optimization for ASCII only alphabets
+
 ## 0.2.1
 
 - Added zero padding option

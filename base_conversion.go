@@ -5,7 +5,7 @@ import (
 	"math"
 	"strings"
 
-	"github.com/rivo/uniseg"
+	"go.dkinom.dev/baseconv/characters"
 	"go.dkinom.dev/baseconv/options"
 )
 
@@ -106,21 +106,21 @@ func (b *baseConversion) convertIntegralPart(ip string) string {
 
 		r, rLen := changeBase(quotients)
 
-		return r + b.toAlphabet.characters[remainder], rLen + 1
+		return r + b.toAlphabet.chars[remainder], rLen + 1
 	}
 
 	values := []int{}
-	gr := uniseg.NewGraphemes(ip)
-	for gr.Next() {
-		character := gr.Str()
+	c := characters.NewCharacters(ip)
+	for c.Next() {
+		char := c.Str()
 
-		values = append(values, b.fromAlphabet.characterSet[character])
+		values = append(values, b.fromAlphabet.charset[char])
 	}
 	ipLen := len(values)
 
 	r, rLen := changeBase(values)
 	if rLen == 0 {
-		r, rLen = b.toAlphabet.zeroCharacter, 1
+		r, rLen = b.toAlphabet.zerochar, 1
 	}
 
 	if b.zeroPadding {
@@ -129,7 +129,7 @@ func (b *baseConversion) convertIntegralPart(ip string) string {
 
 		if currentLength < wantedLength {
 			var sb strings.Builder
-			sb.WriteString(strings.Repeat(b.toAlphabet.zeroCharacter, wantedLength-currentLength))
+			sb.WriteString(strings.Repeat(b.toAlphabet.zerochar, wantedLength-currentLength))
 			sb.WriteString(r)
 
 			r = sb.String()
