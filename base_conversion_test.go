@@ -183,6 +183,68 @@ func TestConverter(t *testing.T) {
 		}
 		testConverter(t, decimalToDecimalEmoji)
 	}
+	{
+		b, err := NewBaseConversion(
+			Hexadecimal, Binary,
+			options.BaseConversion().SetZeroPadding(false),
+		)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var decimalToBinary = map[string]interface{}{
+			"instance": b,
+			"testCases": []map[string]string{
+				{"from": "80", "to": "10000000"},
+				{"from": "91", "to": "10010001"},
+				{"from": "A2", "to": "10100010"},
+				{"from": "B3", "to": "10110011"},
+				{"from": "C4", "to": "11000100"},
+				{"from": "D5", "to": "11010101"},
+				{"from": "E6", "to": "11100110"},
+				{"from": "F7", "to": "11110111"},
+				{"from": "08", "to": "1000"},
+				{"from": "19", "to": "11001"},
+				{"from": "2A", "to": "101010"},
+				{"from": "3B", "to": "111011"},
+				{"from": "4C", "to": "1001100"},
+				{"from": "5D", "to": "1011101"},
+				{"from": "6E", "to": "1101110"},
+				{"from": "7F", "to": "1111111"},
+			},
+		}
+		testConverter(t, decimalToBinary)
+	}
+	{
+		b, err := NewBaseConversion(
+			Hexadecimal, Binary,
+			options.BaseConversion().SetZeroPadding(false),
+		)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var decimalToBinary = map[string]interface{}{
+			"instance": b.Inverse(),
+			"testCases": []map[string]string{
+				{"to": "80", "from": "10000000"},
+				{"to": "91", "from": "10010001"},
+				{"to": "A2", "from": "10100010"},
+				{"to": "B3", "from": "10110011"},
+				{"to": "C4", "from": "11000100"},
+				{"to": "D5", "from": "11010101"},
+				{"to": "E6", "from": "11100110"},
+				{"to": "F7", "from": "11110111"},
+				{"to": "8", "from": "00001000"},
+				{"to": "19", "from": "00011001"},
+				{"to": "2A", "from": "00101010"},
+				{"to": "3B", "from": "00111011"},
+				{"to": "4C", "from": "01001100"},
+				{"to": "5D", "from": "01011101"},
+				{"to": "6E", "from": "01101110"},
+				{"to": "7F", "from": "01111111"},
+			},
+		}
+		testConverter(t, decimalToBinary)
+	}
 }
 
 func testConverter(t *testing.T, converter map[string]interface{}) {

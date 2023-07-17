@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"go.dkinom.dev/baseconv/characters"
+	"go.dkinom.dev/baseconv/internal/characters"
 )
 
 type alphabet struct {
