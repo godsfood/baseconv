@@ -47,7 +47,7 @@ func TestConverter(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var decimalToBinary = map[string]interface{}{
+		var converter = map[string]interface{}{
 			"instance": b,
 			"testCases": []map[string]string{
 				{"from": "0", "to": "0"},
@@ -63,7 +63,7 @@ func TestConverter(t *testing.T) {
 				{"from": "10", "to": "1010"},
 			},
 		}
-		testConverter(t, decimalToBinary)
+		testConverter(t, converter)
 	}
 	{
 		b, err := NewBaseConversion(
@@ -73,7 +73,7 @@ func TestConverter(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var decimalToBinary = map[string]interface{}{
+		var converter = map[string]interface{}{
 			"instance": b,
 			"testCases": []map[string]string{
 				{"from": "0", "to": "0000"},
@@ -89,7 +89,7 @@ func TestConverter(t *testing.T) {
 				{"from": "10", "to": "0001010"},
 			},
 		}
-		testConverter(t, decimalToBinary)
+		testConverter(t, converter)
 	}
 	{
 		b, err := NewBaseConversion(
@@ -99,7 +99,7 @@ func TestConverter(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var decimalToBinary = map[string]interface{}{
+		var converter = map[string]interface{}{
 			"instance": b.Inverse(),
 			"testCases": []map[string]string{
 				{"to": "00", "from": "0000"},
@@ -115,14 +115,14 @@ func TestConverter(t *testing.T) {
 				{"to": "010", "from": "0001010"},
 			},
 		}
-		testConverter(t, decimalToBinary)
+		testConverter(t, converter)
 	}
 	{
 		b, err := NewBaseConversion(Decimal, "0️⃣1️⃣2️⃣3️⃣4️⃣5️⃣6️⃣7️⃣8️⃣9️⃣")
 		if err != nil {
 			t.Fatal(err)
 		}
-		var decimalToDecimalEmoji = map[string]interface{}{
+		var converter = map[string]interface{}{
 			"instance": b,
 			"testCases": []map[string]string{
 				{"from": "0", "to": "0️⃣"},
@@ -138,7 +138,7 @@ func TestConverter(t *testing.T) {
 				{"from": "10", "to": "1️⃣0️⃣"},
 			},
 		}
-		testConverter(t, decimalToDecimalEmoji)
+		testConverter(t, converter)
 	}
 	{
 		b, err := NewBaseConversion(
@@ -148,7 +148,7 @@ func TestConverter(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var decimalToDecimalEmoji = map[string]interface{}{
+		var converter = map[string]interface{}{
 			"instance": b,
 			"testCases": []map[string]string{
 				{"from": "0", "to": "0️⃣"},
@@ -164,7 +164,7 @@ func TestConverter(t *testing.T) {
 				{"from": "10", "to": "1️⃣0️⃣"},
 			},
 		}
-		testConverter(t, decimalToDecimalEmoji)
+		testConverter(t, converter)
 	}
 	{
 		b, err := NewBaseConversion(
@@ -174,14 +174,14 @@ func TestConverter(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var decimalToDecimalEmoji = map[string]interface{}{
+		var converter = map[string]interface{}{
 			"instance": b.Inverse(),
 			"testCases": []map[string]string{
 				{"to": "0CAFE", "from": "5️⃣1️⃣9️⃣6️⃣6️⃣"},
 				{"to": "0DEADC0DE", "from": "3️⃣7️⃣3️⃣5️⃣9️⃣2️⃣9️⃣0️⃣5️⃣4️⃣"},
 			},
 		}
-		testConverter(t, decimalToDecimalEmoji)
+		testConverter(t, converter)
 	}
 	{
 		b, err := NewBaseConversion(
@@ -191,7 +191,7 @@ func TestConverter(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var decimalToBinary = map[string]interface{}{
+		var converter = map[string]interface{}{
 			"instance": b,
 			"testCases": []map[string]string{
 				{"from": "80", "to": "10000000"},
@@ -212,7 +212,7 @@ func TestConverter(t *testing.T) {
 				{"from": "7F", "to": "1111111"},
 			},
 		}
-		testConverter(t, decimalToBinary)
+		testConverter(t, converter)
 	}
 	{
 		b, err := NewBaseConversion(
@@ -222,7 +222,7 @@ func TestConverter(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		var decimalToBinary = map[string]interface{}{
+		var converter = map[string]interface{}{
 			"instance": b.Inverse(),
 			"testCases": []map[string]string{
 				{"to": "80", "from": "10000000"},
@@ -243,7 +243,7 @@ func TestConverter(t *testing.T) {
 				{"to": "7F", "from": "01111111"},
 			},
 		}
-		testConverter(t, decimalToBinary)
+		testConverter(t, converter)
 	}
 }
 

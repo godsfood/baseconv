@@ -1,3 +1,8 @@
+## 0.2.3
+
+- Retracted `go.dkinom.dev/baseconv/characters`
+- Added tests in `go.dkinom.dev/baseconv/options`
+
 ## 0.2.2
 
 - Optimization for ASCII only alphabets
