@@ -1,3 +1,8 @@
+## 0.2.4
+
+- Deleted `go.dkinom.dev/baseconv/characters`
+- Added tests in `go.dkinom.dev/baseconv/internal/characters`
+
 ## 0.2.3
 
 - Retracted `go.dkinom.dev/baseconv/characters`
